@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
     <title>Doc Trail App</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body ng-app="app">
-    <h1></h1>
-    <main></main>
+  <body>
+    <a ui-sref="home">Main</a>
+    <a ui-sref="map">Map</a>
+
+    <div class="view-container">
+      <ui-view></ui-view>
+    </div>
+
     <script src="javascripts/angularApp.js"></script>
+    <script src="javascripts/config.js"></script>
+    <script src="components/navbar/navbar.component.js"></script>
+    <script src="components/navbar/navbar.controller.js"></script>
     <script src="components/main/main.component.js"></script>
     <script src="components/main/main.controller.js"></script>
-
+    <script src="components/map/map.component.js"></script>
+    <script src="components/map/map.controller.js"></script>
+    <script src="factories/map.factory.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWuwnjICGrycSCpKYz0PMoARttbpMS28M"></script>
   </body>
 </html>
