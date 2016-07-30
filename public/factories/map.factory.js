@@ -173,9 +173,10 @@ function MapFactory($http, $q){
   var queryGIS = function(){
     require([
       "esri/map", "esri/layers/FeatureLayer",
-      "esri/tasks/query", "esri/geometry/Circle", "esri/geometry/Polygon","esri/SpatialReference",
+      "esri/tasks/query", "esri/geometry/Circle", "esri/geometry/Polygon","esri/SpatialReference", "esri/config",
       "dojo/dom", "dojo/domReady!"
-    ], function(map, FeatureLayer, Query, Circle, Polygon, SpatialReference){
+    ], function(map, FeatureLayer, Query, Circle, Polygon, SpatialReference, esriConfig){
+      esriConfig.defaults.io.proxyUrl = '/proxy/';
       var featureLayer = new FeatureLayer("http://maps.doc.govt.nz/arcgis/rest/services/DTO/NamedExperiences/MapServer/0",{});
       var query = new Query();
 
