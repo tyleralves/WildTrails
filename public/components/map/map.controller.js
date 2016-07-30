@@ -13,8 +13,12 @@ function MapController(MapFactory){
       .then(function(){
         ctrl.message = false;
         ctrl.markers = MapFactory.markers;
-        console.log('controller');
       });
+  };
+
+  ctrl.addLocation = function(){
+    console.log(ctrl.userLocation);
+    MapFactory.addLocation();
   };
 
   MapFactory.initialize();
