@@ -1,8 +1,7 @@
 var request = require('request');
 
 exports.proxy = function(req, res) {
-	var url, query, query_params, full_url;
-
+	var url, query, query_params, full_url, proxyReq;
 	if (req.method == 'GET') {
 		url = req.url.split('?')[1];
 		query = req.url.split('?')[2];
@@ -11,7 +10,8 @@ exports.proxy = function(req, res) {
 			query_params = '?' + query;
 		}
 		full_url = url + query_params;
-		request.get(full_url, function(error, response, body){
+		proxyReq = request.get(full_url);
+		proxyReq.on('error', function(error){
 			if(error){
 				if(error.code==='ECONNREFUSED'){
 					console.log('Connection refused');
@@ -25,7 +25,10 @@ exports.proxy = function(req, res) {
 			.on('error', function(err){
 				//
 			})
-			.pipe(res);
+			.pipe(res)
+			.on('error', function(err){
+				proxyReq.abort();
+			});
 	} else if (req.method == 'POST') {
 		url = req.url.split('?')[1];
 		request({

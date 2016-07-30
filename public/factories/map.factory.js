@@ -48,9 +48,8 @@ function MapFactory($http, $q){
   };
 
   MapFactory.changeProximity = function(proximity){
-    MapFactory.clearMarkers();
     MapFactory.proximity = proximity;
-    queryGIS();
+    userLocationAcquired(userLocation);
   };
 
   //Removes markers from map
