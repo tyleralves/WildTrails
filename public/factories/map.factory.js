@@ -177,7 +177,7 @@ function MapFactory($http, $q){
       "dojo/dom", "dojo/domReady!"
     ], function(map, FeatureLayer, Query, Circle, Polygon, SpatialReference, esriConfig){
       esriConfig.defaults.io.proxyUrl = '/proxy/';
-      esriConfig.defaults.io.corsEnabledServers.push("http://maps.doc.govt.nz/");
+      esriConfig.defaults.io.alwaysUseProxy = true;
       var featureLayer = new FeatureLayer("http://maps.doc.govt.nz/arcgis/rest/services/DTO/NamedExperiences/MapServer/0",{});
       var query = new Query();
 
