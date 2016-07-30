@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var proxypage = require('proxypage');
-var request = require('request');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -27,21 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 app.all('/proxy', proxypage.proxy);
-var options = {
-  proxy: process.env.QUOTAGUARDSTATIC_URL,
-  url: 'http://maps.googleapis.com/maps/api/js',
-  headers: {
-    'User-Agent': 'node.js'
-  }
-};
-
-function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    console.log(body);
-  }
-}
-
-request(options, callback);
 
 /*Passes all routing to Angular
 app.all('/*', function(req, res, next){
