@@ -29,7 +29,7 @@ app.use('/', routes);
 app.all('/proxy', proxypage.proxy);
 var options = {
   proxy: process.env.QUOTAGUARDSTATIC_URL,
-  url: 'https://maps.googleapis.com/maps/api/js',
+  url: 'http://maps.googleapis.com/maps/api/js',
   headers: {
     'User-Agent': 'node.js'
   }
