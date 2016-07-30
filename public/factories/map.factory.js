@@ -18,18 +18,26 @@ function MapFactory($http){
 
   MapFactory.placeMarkers = function(){
     console.log(MapFactory.markers[0].trailhead);
+    var currentInfoWindow;
     MapFactory.markers.forEach(function(item, index, array){
       var marker = new google.maps.Marker({
         position: MapFactory.markers[index].trailhead,
-        title: 'Test Marker'
+        title: 'item.attributes.name'
       });
-      var infoContent = '<div>Test</div>';
+      var infoContent = '<h4>'+item.attributes.Name+'</h4>' +
+          '<div>'+item.webData.Introduction+'</div>' +
+          "<img src='http://doc.govt.nz" +item.webData.IntroductionThumbnail + "'>";
 
       var infoWindow = new google.maps.InfoWindow({
         content: infoContent
       });
 
-      infoWindow.open(map, marker);
+
+      marker.addListener('click', function(){
+        currentInfoWindow && currentInfoWindow.close();
+        currentInfoWindow = infoWindow;
+        infoWindow.open(map, marker);
+      });
 
       marker.setMap(map);
     });
