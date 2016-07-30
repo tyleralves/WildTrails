@@ -41,31 +41,13 @@ router.get('/indexWebData', function(req, res, next){
 
 
 //Get markers
-router.get('/markers', function(req, res, next){
-  var textQuery = '';
-  var locationQuery = '';
-  var proximityQuery = req.query.userLocationPolygon?JSON.stringify(req.query.userLocationPolygon):'';
-  console.log(proximityQuery);
-  var DOC_GIS_URL = 'http://maps.doc.govt.nz/arcgis/rest/services/DTO/NamedExperiences/MapServer/0/query?where=&text=' + textQuery + '&objectIds=&time=&geometry='+proximityQuery+'&geometryType=esriGeometryPolygon&inSR=4326&spatialRel=esriSpatialRelContains&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json';
-  //Get DOC GIS geometry
-  request({
-    url: DOC_GIS_URL,
-    json: true,
-    method: 'GET'
-  },function(error, response, body){
-    if(body.hasOwnProperty('features')){
-      body.features.forEach(function(item, index, array){
-        console.log('index route got some features!');
-        item.trailhead = {lat: item.geometry.paths[0][0][1], lng:item.geometry.paths[0][0][0]};
-        var webDataIndex = DOC_WEB_JSON[0][item.attributes.Web_URL];
-        item.webData = DOC_WEB_JSON[webDataIndex + 1];
-      });
-      res.json(body.features);
-    }else{
-      res.json({message:'No results'});
-    }
+router.get('/getWebData', function(req, res, next){
+  var webUrl = req.query.Web_URL;
+  console.log(webUrl);
 
-  });
+  var webDataIndex = DOC_WEB_JSON[0][webUrl];
+  res.json({webData: DOC_WEB_JSON[webDataIndex + 1]});
+
 });
 
 

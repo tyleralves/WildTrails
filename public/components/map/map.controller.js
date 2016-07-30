@@ -9,11 +9,9 @@ function MapController(MapFactory){
   ctrl.getMarkers = function(){
     console.log('getMarkers');
     ctrl.message = 'Loading...';
-    MapFactory.getMarkers()
-      .then(function(){
-        ctrl.message = MapFactory.message
-        ctrl.markers = MapFactory.markers;
-      });
+    MapFactory.getMarkers();
+    ctrl.message = MapFactory.message;
+    ctrl.markers = MapFactory.markers;
   };
 
   ctrl.addLocation = function(){
@@ -22,7 +20,6 @@ function MapController(MapFactory){
   };
 
   MapFactory.initialize();
-  ctrl.getMarkers();
 
 }
 
