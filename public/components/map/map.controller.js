@@ -8,6 +8,10 @@ function MapController(MapFactory){
   ctrl.markers = [];
 
 
+  ctrl.mapresize = function(){
+    setTimeout(function(){ Map.resize(); }, 10);
+  };
+
   ctrl.addLocation = function(){
     MapFactory.addLocation();
   };
