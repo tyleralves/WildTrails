@@ -30,7 +30,7 @@ router.get('/indexWebData', function(req, res, next){
   var webData = require('../public/data/parks_data.json');
   var indexObj = {};
   webData.forEach(function(item, index, array){
-    var url = "http://www.doc.govt.nz/link/" + item.Id.toUpperCase() + ".aspx";
+    var url = "https://www.doc.govt.nz/link/" + item.Id.toUpperCase() + ".aspx";
     indexObj[url] = index;
   });
   webData.unshift(indexObj);
