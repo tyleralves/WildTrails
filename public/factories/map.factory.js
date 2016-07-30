@@ -5,7 +5,7 @@ function MapFactory($http, $q){
   var MapFactory = {};
   MapFactory.markers = [];
   MapFactory.message = '';
-  var map, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
+  var map, userLocation, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
 
 
   function drawCircle(point, radius, dir) {
@@ -43,8 +43,6 @@ function MapFactory($http, $q){
     }else{
       MapFactory.message = 'No Results';
     }
-
-
   };
 
   //Removes markers from map
@@ -61,16 +59,22 @@ function MapFactory($http, $q){
     var currentInfoWindow;
     //console.log(MapFactory.markers);
     MapFactory.markers.forEach(function(item, index, array){
+      var markerPosition = new google.maps.LatLng(MapFactory.markers[index].trailhead);
       var marker = new google.maps.Marker({
-        position: MapFactory.markers[index].trailhead,
+        position: markerPosition,
         title: item.attributes.Name
       });
 
+      bounds.extend(markerPosition);
       var introduction = item.webData.hasOwnProperty('Introduction')?item.webData.Introduction:'';
       var thumbnail = item.webData.hasOwnProperty('IntroductionThumbnail')?item.webData.IntroductionThumbnail:'';
+      var static_url = item.webData.hasOwnProperty('Link')?item.webData.Link:'';
 
       var infoContent = "<h4 class='info-window-heading'>"+item.attributes.Name+"</h4>" +
-          "<div>"+introduction+"</div>" +
+          "<div>"+
+          "<span>"+introduction+"</span>"+
+          "<a href='"+static_url+"'>Doc Page</a>" +
+          "</div>" +
           "<img src='http://doc.govt.nz" + thumbnail + "'>";
 
       var infoWindow = new google.maps.InfoWindow({
@@ -85,19 +89,54 @@ function MapFactory($http, $q){
       });
 
       markersArray.push(marker);
-      console.log(markersArray);
       marker.setMap(map);
-
-      bounds.extend(marker.getPosition());
     });
-    bounds.fitBounds(bounds);
+    map.fitBounds(bounds);
   };
 
+  function userLocationAcquired(sourceLocation){
+    var userLocationCircle;
+
+    userLocationPolygon = drawCircle(sourceLocation, 10);
+
+    //If userLocationMarker already exists, clear it
+    if(userLocationMarker){
+      userLocationMarker.setMap(null);
+      userLocationMarker = {};
+      bounds = new google.maps.LatLngBounds();
+    }
+
+    //Adds marker to user location
+    userLocationMarker = new google.maps.Marker({
+      position: sourceLocation,
+      title: 'User Location',
+      map: map
+    });
+
+    //Sets bounds of user location
+    bounds.extend(sourceLocation);
+    map.fitBounds(bounds);
+    MapFactory.clearMarkers();
+    queryGIS();
+  }
 
 
   MapFactory.initialize = function(){
     var centerLatLng = {lat:-41, lng: 173};
     bounds = new google.maps.LatLngBounds();
+
+    function getGeoLocation(){
+      if("geolocation" in navigator){
+        navigator.geolocation.getCurrentPosition(function(position){
+          userLocation = new google.maps.LatLng({lat:position.coords.latitude, lng:position.coords.longitude});
+          userLocationAcquired(userLocation);
+        })
+      }else{
+        return {};
+      }
+    }
+
+    getGeoLocation();
 
     if(!map){
       map = new google.maps.Map(document.getElementById('map'), {
@@ -117,34 +156,13 @@ function MapFactory($http, $q){
     });
 
     //Fires when search box query changes
+    //Get places from search box
     searchBox.addListener('places_changed', function(){
-      var userLocationCircle;
-      //Get places from search box
       var places = searchBox.getPlaces();
       if(!places || places.length === 0){
         return;
       }
-      userLocation = places[0].geometry.location;
-      userLocationPolygon = drawCircle(userLocation, 10);
-      console.log(userLocationPolygon);
-
-      //Adds marker to user location
-      userLocationMarker = new google.maps.Marker({
-        position: userLocation,
-        title: 'User Location',
-        map: map
-      });
-
-
-      //Sets bounds of user location
-      if(places[0].geometry.viewport){
-        bounds.union(places[0].geometry.viewport);
-      }else{
-        bounds.extend(places[0].geometry.location);
-      }
-      queryGIS();
-
-
+      userLocationAcquired(places[0].geometry.location)
     });
 
   };
@@ -157,7 +175,6 @@ function MapFactory($http, $q){
       "dojo/dom", "dojo/domReady!"
     ], function(map, FeatureLayer, Query, Circle, Polygon, SpatialReference){
       var featureLayer = new FeatureLayer("http://maps.doc.govt.nz/arcgis/rest/services/DTO/NamedExperiences/MapServer/0",{});
-      console.log('in gis query');
       var query = new Query();
 
       userLocationPolygon.spatialReference={"wkid":4326};
@@ -166,7 +183,7 @@ function MapFactory($http, $q){
       query.outFields = ["*"];
       featureLayer.queryFeatures(query, function(response){
         var qPromises = [];
-        if(response.hasOwnProperty('features')){
+        if(response.hasOwnProperty('features') && response.features.length){
           response.features.forEach(function(item, index, array){
             item.trailhead = {lat: item.geometry.paths[0][0][1], lng:item.geometry.paths[0][0][0]};
 
@@ -176,9 +193,7 @@ function MapFactory($http, $q){
                 if(response.data.hasOwnProperty('webData')){
                   item.webData = response.data.webData;
                 }else{
-                  item.webData = {
-
-                  };
+                  item.webData = {};
                 }
 
               });
@@ -190,8 +205,6 @@ function MapFactory($http, $q){
               MapFactory.getMarkers(response.features);
             });
 
-        }else{
-          return;
         }
       });
     });
