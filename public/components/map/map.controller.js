@@ -1,15 +1,17 @@
 /**
  * Created by Tyler on 7/29/2016.
  */
-function MapController(MapFactory){
+function MapController(MapFactory, $rootScope){
   var ctrl = this;
   ctrl.proximity = 15;
   ctrl.message = 'Loading...';
   ctrl.markers = [];
 
-
+  $rootScope.$on('$viewContentLoaded', function(){
+    ctrl.mapresize();
+  });
   ctrl.mapresize = function(){
-    setTimeout(function(){ Map.resize(); }, 10);
+    setTimeout(function(){ MapFactory.resize(); }, 10);
   };
 
   ctrl.addLocation = function(){
@@ -25,7 +27,7 @@ function MapController(MapFactory){
 
 }
 
-MapController.$inject = ['MapFactory'];
+MapController.$inject = ['MapFactory', '$rootScope'];
 
 angular
   .module('app')

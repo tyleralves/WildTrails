@@ -8,6 +8,12 @@ function MapFactory($http, $q){
   MapFactory.proximity = 15;
   var map, count, userLocation, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
 
+  MapFactory.resize = function() {
+    console.log('resize');
+    if(map) {
+      google.maps.event.trigger(map, 'resize');
+    }
+  };
 
   function drawCircle(point, radius, dir) {
     var d2r = Math.PI / 180;   // degrees to radians
