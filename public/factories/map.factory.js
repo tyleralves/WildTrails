@@ -5,13 +5,15 @@ function MapFactory($http, $q){
   var MapFactory = {};
   MapFactory.markers = [];
   MapFactory.message = '';
-  var map, userLocation, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
+  MapFactory.proximity = 15;
+  var map, count, userLocation, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
 
 
   function drawCircle(point, radius, dir) {
     var d2r = Math.PI / 180;   // degrees to radians
     var r2d = 180 / Math.PI;   // radians to degrees
-    var earthsradius = 3963; // 3963 is the radius of the earth in miles
+    //radius of earth in km
+    var earthsradius = 6371;
     var start, end;
     var points = 32;
 
@@ -43,6 +45,12 @@ function MapFactory($http, $q){
     }else{
       MapFactory.message = 'No Results';
     }
+  };
+
+  MapFactory.changeProximity = function(proximity){
+    MapFactory.clearMarkers();
+    MapFactory.proximity = proximity;
+    queryGIS();
   };
 
   //Removes markers from map
@@ -96,10 +104,7 @@ function MapFactory($http, $q){
     map.fitBounds(bounds);
   };
 
-  function userLocationAcquired(sourceLocation){
-    var userLocationCircle;
-
-    userLocationPolygon = drawCircle(sourceLocation, 10);
+  function userLocationAcquired(){
 
     //If userLocationMarker already exists, clear it
     if(userLocationMarker){
@@ -110,13 +115,13 @@ function MapFactory($http, $q){
 
     //Adds marker to user location
     userLocationMarker = new google.maps.Marker({
-      position: sourceLocation,
+      position: userLocation,
       title: 'User Location',
       map: map
     });
 
     //Sets bounds of user location
-    bounds.extend(sourceLocation);
+    bounds.extend(userLocation);
     map.fitBounds(bounds);
     MapFactory.clearMarkers();
     queryGIS();
@@ -164,13 +169,17 @@ function MapFactory($http, $q){
       if(!places || places.length === 0){
         return;
       }
-      userLocationAcquired(places[0].geometry.location)
+      userLocation = places[0].geometry.location;
+      userLocationAcquired(userLocation);
     });
 
   };
 
 
   var queryGIS = function(){
+
+    console.log('COUNT IT');
+
     require([
       "esri/map", "esri/layers/FeatureLayer",
       "esri/tasks/query", "esri/geometry/Circle", "esri/geometry/Polygon","esri/SpatialReference", "esri/config",
@@ -178,6 +187,7 @@ function MapFactory($http, $q){
     ], function(map, FeatureLayer, Query, Circle, Polygon, SpatialReference, esriConfig){
       esriConfig.defaults.io.proxyUrl = '/proxy/';
       esriConfig.defaults.io.alwaysUseProxy = true;
+      userLocationPolygon = drawCircle(userLocation, MapFactory.proximity);
       var featureLayer = new FeatureLayer("http://maps.doc.govt.nz/arcgis/rest/services/DTO/NamedExperiences/MapServer/0",{});
       var query = new Query();
 

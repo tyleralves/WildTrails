@@ -3,12 +3,18 @@
  */
 function MapController(MapFactory){
   var ctrl = this;
+  ctrl.proximity = 15;
   ctrl.message = 'Loading...';
   ctrl.markers = [];
 
+
   ctrl.addLocation = function(){
-    console.log(ctrl.userLocation);
     MapFactory.addLocation();
+  };
+
+  ctrl.changeProximity = function(){
+    console.log(ctrl.proximity);
+    MapFactory.changeProximity(ctrl.proximity);
   };
 
   MapFactory.initialize();

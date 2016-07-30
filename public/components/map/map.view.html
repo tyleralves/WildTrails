@@ -1,5 +1,11 @@
 <div class="row">
     <div class="col-md-12">
+        <select ng-model="$ctrl.proximity" ng-change="$ctrl.changeProximity()">
+            <option value="5" ng-selected="$ctrl.proximity===5">5</option>
+            <option value="10" ng-selected="$ctrl.proximity===10">10</option>
+            <option value="15" ng-selected="$ctrl.proximity===15">15</option>
+            <option value="20" ng-selected="$ctrl.proximity===20">20</option>
+        </select>
         <label for="location-input" hidden>Input Location:</label>
         <input type="text" id="location-input" class="controls">
         <div id="map"></div>
