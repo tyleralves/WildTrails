@@ -6,14 +6,6 @@ function MapController(MapFactory){
   ctrl.message = 'Loading...';
   ctrl.markers = [];
 
-  ctrl.getMarkers = function(){
-    console.log('getMarkers');
-    ctrl.message = 'Loading...';
-    MapFactory.getMarkers();
-    ctrl.message = MapFactory.message;
-    ctrl.markers = MapFactory.markers;
-  };
-
   ctrl.addLocation = function(){
     console.log(ctrl.userLocation);
     MapFactory.addLocation();
