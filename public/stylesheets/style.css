@@ -1,5 +1,8 @@
+html, body {
+  width: 100%;
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,6 +11,10 @@ a {
 }
 
 #map {
-  height: 90vh;
-  width: 95vw;
+  height: 85vh;
+  width: 100%;
+}
+
+#location-input {
+  margin-top: 20px;
 }

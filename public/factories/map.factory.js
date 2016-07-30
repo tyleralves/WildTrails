@@ -64,6 +64,7 @@ function MapFactory($http, $q){
         position: markerPosition,
         title: item.attributes.Name
       });
+      marker.setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/hiker.png');
 
       bounds.extend(markerPosition);
       var introduction = item.webData.hasOwnProperty('Introduction')?item.webData.Introduction:'';
@@ -72,8 +73,8 @@ function MapFactory($http, $q){
 
       var infoContent = "<h4 class='info-window-heading'>"+item.attributes.Name+"</h4>" +
           "<div>"+
-          "<span>"+introduction+"</span>"+
-          "<a href='"+static_url+"'>Doc Page</a>" +
+          "<span>"+introduction+"</span><br>"+
+          "<a href='"+static_url+"'>See Doc Page</a>" +
           "</div>" +
           "<img src='http://doc.govt.nz" + thumbnail + "'>";
 
@@ -91,6 +92,7 @@ function MapFactory($http, $q){
       markersArray.push(marker);
       marker.setMap(map);
     });
+    //Set map extents for current markers
     map.fitBounds(bounds);
   };
 
