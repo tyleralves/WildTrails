@@ -11,7 +11,7 @@ function MapController(MapFactory){
     ctrl.message = 'Loading...';
     MapFactory.getMarkers()
       .then(function(){
-        ctrl.message = false;
+        ctrl.message = MapFactory.message
         ctrl.markers = MapFactory.markers;
       });
   };

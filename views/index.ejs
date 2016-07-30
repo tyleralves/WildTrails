@@ -3,9 +3,11 @@
   <head>
     <title>Doc Trail App</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://js.arcgis.com/3.17/"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
@@ -16,6 +18,7 @@
       <ui-view></ui-view>
     </div>
 
+
     <script src="javascripts/angularApp.js"></script>
     <script src="javascripts/config.js"></script>
     <script src="components/navbar/navbar.component.js"></script>
@@ -25,6 +28,7 @@
     <script src="components/map/map.component.js"></script>
     <script src="components/map/map.controller.js"></script>
     <script src="factories/map.factory.js"></script>
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWuwnjICGrycSCpKYz0PMoARttbpMS28M&libraries=places"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWuwnjICGrycSCpKYz0PMoARttbpMS28M&libraries=places,geometry"></script>
+    <!--<script src="javascripts/routeboxer.js"></script>-->
   </body>
 </html>
