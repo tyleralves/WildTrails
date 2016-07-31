@@ -7,11 +7,12 @@
         </p>
         <div class="row">
             <div class="col-md-12">
-                <select ng-model="$ctrl.proximity" ng-change="$ctrl.changeProximity()">
-                    <option value="5" ng-selected="$ctrl.proximity===5">5</option>
-                    <option value="10" ng-selected="$ctrl.proximity===10">10</option>
-                    <option value="15" ng-selected="$ctrl.proximity===15">15</option>
-                    <option value="20" ng-selected="$ctrl.proximity===20">20</option>
+                <label for="proximity-input">Proximity: </label>
+                <select class="form-control" ng-model="$ctrl.proximity" id="proximity-input" ng-change="$ctrl.changeProximity()">
+                    <option value="5" ng-selected="$ctrl.proximity===5">5 km</option>
+                    <option value="10" ng-selected="$ctrl.proximity===10">10 km</option>
+                    <option value="15" ng-selected="$ctrl.proximity===15">15 km</option>
+                    <option value="20" ng-selected="$ctrl.proximity===20">20 km</option>
                 </select>
                 <div class="location-input-container">
                     <label for="location-input" hidden>Input Location:</label>

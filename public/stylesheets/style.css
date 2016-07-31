@@ -2,6 +2,7 @@
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
 }
 
 a {
@@ -9,7 +10,7 @@ a {
 }
 
 #map {
-  height: 85vh;
+  height: 83vh;
   width: 100%;
 }
 
@@ -18,11 +19,28 @@ a {
   width: 95%;
 }
 
+#proximity-input{
+  width: 200px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
 @media screen and (min-width: 992px)
 {
+  #map {
+    height: 85vh;
+  }
   #location-input{
     width: 200px;
   }
+  #proximity-input {
+    width: 200px;
+  }
+}
+
+.lead{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .initial-hidden{
