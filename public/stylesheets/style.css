@@ -2,7 +2,8 @@
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  height: 100%;
+  height: 110vh;
+  width:100%;
 }
 
 a {
@@ -49,12 +50,10 @@ a {
 
 body {
   background:#505D6E url(/images/photo-1464198016405-33fd4527b89d.jpeg) no-repeat center center fixed;
-  min-height:100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-height:100%;
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
   line-height: 1.5em;
