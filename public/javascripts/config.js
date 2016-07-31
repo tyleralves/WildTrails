@@ -6,7 +6,7 @@ angular
   .config(function($stateProvider, $urlRouterProvider){
     $stateProvider.state('home', {
       url: '/',
-      template: '<main></main>'
+      template: '<home></home>'
     })
     .state('map', {
       url: '/map',

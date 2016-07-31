@@ -2,25 +2,35 @@
 <html ng-app="app">
   <head>
     <title>Doc Trail App</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
     <script src="https://js.arcgis.com/3.17/"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
   </head>
-  <body>
-    <a ui-sref="home">Main</a>
-    <a ui-sref="map">Map</a>
-
-    <div class="container-fluid">
-      <ui-view></ui-view>
-    </div>
+  <body class="theme-invert">
 
 
+    <main></main>
+
+
+
+
+
+
+    <!-- Load js libs only when the page is loaded. -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="javascripts/modernizr.custom.72241.js"></script>
     <script src="javascripts/angularApp.js"></script>
     <script src="javascripts/config.js"></script>
+    <script src="components/home/home.component.js"></script>
+    <script src="components/home/home.controller.js"></script>
     <script src="components/navbar/navbar.component.js"></script>
     <script src="components/navbar/navbar.controller.js"></script>
     <script src="components/main/main.component.js"></script>

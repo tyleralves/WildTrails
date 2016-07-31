@@ -1,0 +1,56 @@
+<nav class="mainmenu">
+    <div class="container">
+        <div class="dropdown">
+            <button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="#head" class="active" ng-click="$ctrl.toggleSection=!$ctrl.toggleSection">Home</a></li>
+                <li><a href="#about" ng-click="$ctrl.toggleSection=!$ctrl.toggleSection">About Wild Trails</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Main (Home) section -->
+<section class="section" ng-show="$ctrl.toggleSection" id="head">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center">
+
+                <!-- Site Title, your name, HELLO msg, etc. -->
+                <div class="title"><img src="/images/wild-trails-logo-1.png" /></div>
+                <h2 class="subtitle">Discover the path, explore the hidden</h2>
+
+                <!-- Short introductory (optional) -->
+                <h3 class="tagline">
+                    We help you look for the hidden trails nearest you.
+                </h3>
+
+                <!-- Nice place to describe your site in a sentence or two -->
+                <p><a ui-sref="map"  class="btn btn-default btn-lg">Get started</a></p>
+
+            </div> <!-- /col -->
+        </div> <!-- /row -->
+
+    </div>
+</section>
+
+<!-- Second (About) section -->
+<section class="section" ng-hide="$ctrl.toggleSection" id="about">
+    <div class="container">
+
+        <h2 class="text-center title">About Wild Trails</h2>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-2">
+                <h5><strong>Our purpose</strong></h5>
+                <p>Wild Trails provides a simple solution for people to find the nearest trails closest to them.</p>
+            </div>
+            <div class="col-sm-4">
+                <h5><strong>Meet the developers</strong></h5>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</section>

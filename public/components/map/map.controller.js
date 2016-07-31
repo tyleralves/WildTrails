@@ -1,18 +1,11 @@
 /**
  * Created by Tyler on 7/29/2016.
  */
-function MapController(MapFactory, $rootScope){
+function MapController(MapFactory){
   var ctrl = this;
   ctrl.proximity = 15;
   ctrl.message = 'Loading...';
   ctrl.markers = [];
-
-  $rootScope.$on('$viewContentLoaded', function(){
-    ctrl.mapresize();
-  });
-  ctrl.mapresize = function(){
-    setTimeout(function(){ MapFactory.resize(); }, 10);
-  };
 
   ctrl.addLocation = function(){
     MapFactory.addLocation();
@@ -25,9 +18,10 @@ function MapController(MapFactory, $rootScope){
 
   MapFactory.initialize();
 
+
 }
 
-MapController.$inject = ['MapFactory', '$rootScope'];
+MapController.$inject = ['MapFactory'];
 
 angular
   .module('app')

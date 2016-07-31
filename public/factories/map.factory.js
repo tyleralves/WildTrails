@@ -9,10 +9,7 @@ function MapFactory($http, $q){
   var map, count, userLocation, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
 
   MapFactory.resize = function() {
-    console.log('resize');
-    if(map) {
-      google.maps.event.trigger(map, 'resize');
-    }
+    MapFactory.initialize();
   };
 
   function drawCircle(point, radius, dir) {
@@ -183,7 +180,6 @@ function MapFactory($http, $q){
 
   var queryGIS = function(){
 
-    console.log('COUNT IT');
 
     require([
       "esri/map", "esri/layers/FeatureLayer",
