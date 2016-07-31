@@ -1,10 +1,10 @@
 /**
  * Created by Tyler on 7/29/2016.
  */
-function MapController(MapFactory){
+function MapController(MapFactory, $scope){
   var ctrl = this;
+  data = MapFactory;
   ctrl.proximity = 15;
-  ctrl.message = 'Loading...';
   ctrl.markers = [];
 
   ctrl.addLocation = function(){
@@ -16,12 +16,16 @@ function MapController(MapFactory){
     MapFactory.changeProximity(ctrl.proximity);
   };
 
-  MapFactory.initialize();
+  ctrl.initialize = function(){
+    MapFactory.initialize();
+  };
+
+  ctrl.initialize();
 
 
 }
 
-MapController.$inject = ['MapFactory'];
+MapController.$inject = ['MapFactory', '$scope'];
 
 angular
   .module('app')

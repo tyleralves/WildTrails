@@ -4,13 +4,9 @@
 function MapFactory($http, $q){
   var MapFactory = {};
   MapFactory.markers = [];
-  MapFactory.message = '';
+  MapFactory.message = 'Loading...';
   MapFactory.proximity = 15;
   var map, count, userLocation, userLocationMarker, userLocationPolygon, bounds, markersArray = [];
-
-  MapFactory.resize = function() {
-    MapFactory.initialize();
-  };
 
   function drawCircle(point, radius, dir) {
     var d2r = Math.PI / 180;   // degrees to radians
@@ -42,7 +38,6 @@ function MapFactory($http, $q){
 
     if(response[0].hasOwnProperty('attributes')){
       angular.copy(response, MapFactory.markers);
-      MapFactory.message = '';
       MapFactory.clearMarkers();
       MapFactory.placeMarkers();
     }else{
@@ -150,14 +145,19 @@ function MapFactory($http, $q){
     if(!map){
       map = new google.maps.Map(document.getElementById('map'), {
         center: centerLatLng,
-        zoom: 5
+        zoom: 5,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: google.maps.ControlPosition.BOTTOM_CENTER
+        }
       });
     }
 
     //Creates searchbox and links to UI element
     var input = document.getElementById('location-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
     //Bias search results toward current map bounds
     map.addListener('bounds_changed', function(){

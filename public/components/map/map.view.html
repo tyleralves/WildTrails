@@ -1,7 +1,3 @@
-<div class="row">
-
-</div>
-
 <!-- Main (Map) section -->
 
 <section class="section" id="head">
@@ -17,8 +13,11 @@
                     <option value="15" ng-selected="$ctrl.proximity===15">15</option>
                     <option value="20" ng-selected="$ctrl.proximity===20">20</option>
                 </select>
-                <label for="location-input" hidden>Input Location:</label>
-                <input type="text" id="location-input" class="controls">
+                <div class="location-input-container">
+                    <label for="location-input" hidden>Input Location:</label>
+                    <input type="text" id="location-input" class="controls">
+                </div>
+
                 <div id="map"></div>
 
 
