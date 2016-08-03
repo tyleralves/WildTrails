@@ -186,8 +186,8 @@ function MapFactory($http, $q){
       "esri/tasks/query", "esri/geometry/Circle", "esri/geometry/Polygon","esri/SpatialReference", "esri/config",
       "dojo/dom", "dojo/domReady!"
     ], function(map, FeatureLayer, Query, Circle, Polygon, SpatialReference, esriConfig){
-      esriConfig.defaults.io.proxyUrl = '/proxy/';
-      esriConfig.defaults.io.alwaysUseProxy = true;
+      //esriConfig.defaults.io.proxyUrl = '/proxy/';
+      //esriConfig.defaults.io.alwaysUseProxy = true;
       userLocationPolygon = drawCircle(userLocation, MapFactory.proximity);
       var featureLayer = new FeatureLayer("http://maps.doc.govt.nz/arcgis/rest/services/DTO/NamedExperiences/MapServer/0",{});
       var query = new Query();
